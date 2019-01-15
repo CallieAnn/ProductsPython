@@ -1,3 +1,4 @@
+from decimal import *
 """
 GetProductInfo()
 ask for product name
@@ -12,15 +13,58 @@ create product object
 """
 
 
-def get_user_product():
-    product_name = input("Please enter the product name.")
-    product_price = input("Please enter the product price.")
-    product_quantity = input("Please enter the product quantity.")
-    product_locations = input("Please enter the product locations.")
+def validate_product_name(name_input):
+    if name_input != "":
+        return True
+    else:
+        return False
 
-    user_product = Product(product_name, product_price, product_quantity, product_locations)
+
+def validate_product_price(price_input):
+
+    try:
+        number = Decimal(price_input)
+        number >= 0
+        acceptable_number = True
+    except InvalidOperation:
+        acceptable_number = False
+
+    return acceptable_number
+
+
+def get_user_product():
+
+    name_accepted = False
+
+    while not name_accepted:
+        product_name = input("Please enter the product name.")
+        name_accepted = validate_product_name(product_name)
+        print("Name acceptable?" + str(name_accepted))
+
+    price_accepted = False
+
+    while not price_accepted:
+        product_price = input("Please enter the product price.")
+        price_accepted = validate_product_price(product_price)
+        print("Price acceptable?" + str(price_accepted))
+
+    product_price_decimal = Decimal(product_price)
+
+    product_quantity = input("Please enter the product quantity.")
+
+    location_input = input("Enter the product locations separated by commas")
+    product_locations = list(map(str, location_input.split(",")))
+
+    """product_locations = input("Please enter the product locations.")"""
+
+    user_product = Product(product_name, product_price_decimal, product_quantity, product_locations)
 
     return user_product
+
+
+
+
+
 
 
 """
