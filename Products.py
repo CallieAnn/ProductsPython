@@ -32,39 +32,62 @@ def validate_product_price(price_input):
     return acceptable_number
 
 
+def validate_product_quantity(quantity_input):
+    try:
+        number_quantity = int(quantity_input)
+        acceptable_quantity = True
+    except ValueError:
+        acceptable_quantity = False
+
+    return acceptable_quantity
+
+
+def validate_product_locations(locations_input):
+    if locations_input != "":
+        return True
+    else:
+        return False
+
+
 def get_user_product():
 
     name_accepted = False
 
     while not name_accepted:
-        product_name = input("Please enter the product name.")
-        name_accepted = validate_product_name(product_name)
-        print("Name acceptable?" + str(name_accepted))
+        product_name_input = input("Please enter the product name. \n")
+        name_accepted = validate_product_name(product_name_input)
+        print("Name acceptable? " + str(name_accepted))
+        product_name = product_name_input.strip()
 
     price_accepted = False
 
     while not price_accepted:
-        product_price = input("Please enter the product price.")
+        product_price = input("Please enter the product price in integer or decimal format. \n")
         price_accepted = validate_product_price(product_price)
-        print("Price acceptable?" + str(price_accepted))
+        print("Price acceptable? " + str(price_accepted))
 
     product_price_decimal = Decimal(product_price)
 
-    product_quantity = input("Please enter the product quantity.")
+    quantity_accepted = False
 
-    location_input = input("Enter the product locations separated by commas")
-    product_locations = list(map(str, location_input.split(",")))
+    while not quantity_accepted:
+        product_quantity = input("Please enter the product quantity as an integer. \n")
+        quantity_accepted = validate_product_quantity(product_quantity)
+        print("Quantity acceptable? " + str(quantity_accepted))
 
-    """product_locations = input("Please enter the product locations.")"""
+    product_quantity_int = int(product_quantity)
 
-    user_product = Product(product_name, product_price_decimal, product_quantity, product_locations)
+    locations_accepted = False
+
+    while not locations_accepted:
+        locations_input = input("Please Enter the product locations separated by commas. \n")
+        locations_accepted = validate_product_locations(locations_input)
+        print("Locations acceptable? " + str(locations_accepted))
+        product_locations = list(map(str, (x.strip() for x in locations_input.split(","))))
+
+    user_product = Product(product_name, product_price_decimal, product_quantity_int, product_locations)
 
     return user_product
-
-
-
-
-
 
 
 """
