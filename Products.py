@@ -1,4 +1,6 @@
 from decimal import *
+import msvcrt
+
 """
 GetProductInfo()
 ask for product name
@@ -139,8 +141,8 @@ class Product:
         self.locations = locations
 
     def product_to_string(self):
-        return f"Name: {self.name}, Price: ${self.price} " \
-            f", Quantity: {self.quantity}, Locations: {self.locations}"
+        return f"{self.name} \t\t ${self.price} \t\t" \
+            f"{self.quantity} \t\t {self.locations}"
 
 
 """Greet user"""
@@ -178,10 +180,18 @@ else
 end else
 """
 
-file_name = input("Please enter a file name for your products.")
+file_name = input("Please enter a file name for your products. \n")
 
 products_file = open(f"{file_name}.txt", "w")
+products_file.write("Name \t\t Price \t\t Quantity \t\t Locations")
 for p in products:
+    products_file.write("\n")
     products_file.write(p.product_to_string())
+products_file.close()
 
 print(f"Your products are saved in {file_name}.txt ")
+
+print("\n Press any key to exit.")
+msvcrt.getch()
+exit()
+

@@ -1,1 +1,0 @@
-Name: Mug, Price: $50 , Quantity: 1, Locations: ['Eugene']
