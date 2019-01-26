@@ -135,14 +135,14 @@ end GetProductInfo
 
 class Product:
     def __init__(self, name, price, quantity, locations):
-        self.name = name
-        self.price = price
-        self.quantity = quantity
-        self.locations = locations
+        self.__name = name
+        self.__price = price
+        self.__quantity = quantity
+        self.__locations = locations
 
     def product_to_string(self):
-        return f"{self.name} \t\t ${self.price} \t\t" \
-            f"{self.quantity} \t\t {self.locations}"
+        return f"{self.__name} \t\t ${self.__price} \t\t" \
+            f"{self.__quantity} \t\t {self.__locations}"
 
 
 """Greet user"""
@@ -152,6 +152,7 @@ print("Welcome to the Products program.")
 product = get_user_product()
 
 print(product.product_to_string())
+"""This was to see name mangling via dunders in Product class: print(dir(product))"""
 
 """add product object to products collection"""
 products = [product]
